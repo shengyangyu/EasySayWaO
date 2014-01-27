@@ -53,7 +53,21 @@
 }
 - (void)rightBtnMethod
 {
-    NSLog(@"rightBtnMethod");
+    if (self.userNameField.text.length == 0 || self.passworldField.text.length == 0 || self.severSetField.text.length == 0) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"请输入用户名，密码和服务器" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [alert show];
+        return;
+    }else{
+    
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        [defaults setObject:self.userNameField.text forKey:@"userNameField"];
+        [defaults setObject:self.passworldField.text forKey:@"passworldField"];
+        [defaults setObject:self.severSetField.text forKey:@"severSetField"];
+        //保存
+        [defaults synchronize];
+        
+        [self leftBtnMethod];
+    }
 }
 
 #pragma mark -memory manage

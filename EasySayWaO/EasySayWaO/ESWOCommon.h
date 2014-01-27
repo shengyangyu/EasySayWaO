@@ -11,5 +11,7 @@
 @interface ESWOCommon : NSObject
 
 + (void)customizeNavBar:(UIViewController*)targetView withTitle:(NSString *)title buttonNameL:(NSString*)btnNameL buttonNameR:(NSString*)btnNameR;
++ (void)matchSystemVersion:(UIViewController*)targetView;
+
 
 @end

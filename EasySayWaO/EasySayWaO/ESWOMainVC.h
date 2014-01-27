@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ESWOAppDelegate.h"
 
-@interface ESWOMainVC : UIViewController<UITableViewDataSource,UITableViewDelegate>
-
+@interface ESWOMainVC : UIViewController<UITableViewDataSource,UITableViewDelegate,ESWOKKChatDlegate>
 
 @property (strong, nonatomic) IBOutlet UITableView *usersTableView;
 

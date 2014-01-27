@@ -157,6 +157,8 @@
 		079DFF0B1892483000AA316A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 079DFEF31892483000AA316A /* UIKit.framework */; };
 		079DFF131892483000AA316A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 079DFF111892483000AA316A /* InfoPlist.strings */; };
 		079DFF151892483000AA316A /* EasySayWaOTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 079DFF141892483000AA316A /* EasySayWaOTests.m */; };
+		07CCFB191896631B00A73428 /* ESWOMessageVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 07CCFB171896631B00A73428 /* ESWOMessageVC.m */; };
+		07CCFB1A1896631B00A73428 /* ESWOMessageVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07CCFB181896631B00A73428 /* ESWOMessageVC.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -463,6 +465,10 @@
 		079DFFFD1892497700AA316A /* XMPPMessageArchiving_Message_CoreDataObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMPPMessageArchiving_Message_CoreDataObject.h; sourceTree = "<group>"; };
 		079DFFFE1892497700AA316A /* XMPPMessageArchiving_Message_CoreDataObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMPPMessageArchiving_Message_CoreDataObject.m; sourceTree = "<group>"; };
 		079DFFFF1892497700AA316A /* XMPPMessageArchivingCoreDataStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMPPMessageArchivingCoreDataStorage.h; sourceTree = "<group>"; };
+		079F641E1896270400A4B560 /* ESWODelegateDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESWODelegateDefine.h; sourceTree = "<group>"; };
+		07CCFB161896631B00A73428 /* ESWOMessageVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESWOMessageVC.h; sourceTree = "<group>"; };
+		07CCFB171896631B00A73428 /* ESWOMessageVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESWOMessageVC.m; sourceTree = "<group>"; };
+		07CCFB181896631B00A73428 /* ESWOMessageVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ESWOMessageVC.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -777,16 +783,20 @@
 		079DFEF51892483000AA316A /* EasySayWaO */ = {
 			isa = PBXGroup;
 			children = (
+				079F641E1896270400A4B560 /* ESWODelegateDefine.h */,
 				079DFEFE1892483000AA316A /* ESWOAppDelegate.h */,
 				079DFEFF1892483000AA316A /* ESWOAppDelegate.m */,
 				0745F09718950425009DB9D8 /* ESWOCommon.h */,
 				0745F09818950425009DB9D8 /* ESWOCommon.m */,
-				0745F09A18950CFC009DB9D8 /* ESWOMainVC.h */,
-				0745F09B18950CFC009DB9D8 /* ESWOMainVC.m */,
-				0745F09C18950CFC009DB9D8 /* ESWOMainVC.xib */,
 				079D00F418924A6900AA316A /* ESWOLoginVC.h */,
 				079D00F518924A6900AA316A /* ESWOLoginVC.m */,
 				079D00F618924A6900AA316A /* ESWOLoginVC.xib */,
+				0745F09A18950CFC009DB9D8 /* ESWOMainVC.h */,
+				0745F09B18950CFC009DB9D8 /* ESWOMainVC.m */,
+				0745F09C18950CFC009DB9D8 /* ESWOMainVC.xib */,
+				07CCFB161896631B00A73428 /* ESWOMessageVC.h */,
+				07CCFB171896631B00A73428 /* ESWOMessageVC.m */,
+				07CCFB181896631B00A73428 /* ESWOMessageVC.xib */,
 				079DFF011892483000AA316A /* Images.xcassets */,
 				079DFEF61892483000AA316A /* Supporting Files */,
 			);
@@ -1437,6 +1447,7 @@
 			files = (
 				079DFEFA1892483000AA316A /* InfoPlist.strings in Resources */,
 				079D00DF1892497800AA316A /* README.txt in Resources */,
+				07CCFB1A1896631B00A73428 /* ESWOMessageVC.xib in Resources */,
 				079D00F818924A6900AA316A /* ESWOLoginVC.xib in Resources */,
 				079DFF021892483000AA316A /* Images.xcassets in Resources */,
 				079D00E41892497800AA316A /* build-libidn.sh in Resources */,
@@ -1570,6 +1581,7 @@
 				079D00BE1892497800AA316A /* XMPPMessageArchivingCoreDataStorage.m in Sources */,
 				079D00891892497800AA316A /* XMPPIQ+JabberRPCResonse.m in Sources */,
 				079D00AE1892497800AA316A /* XMPPIQ+XEP_0066.m in Sources */,
+				07CCFB191896631B00A73428 /* ESWOMessageVC.m in Sources */,
 				079D006D1892497800AA316A /* XMPPXFacebookPlatformAuthentication.m in Sources */,
 				079D00D81892497800AA316A /* DDAbstractDatabaseLogger.m in Sources */,
 				079D00961892497800AA316A /* XMPPRoomMemoryStorage.m in Sources */,
@@ -1717,7 +1729,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/amariyangge/Desktop/EasySayWaO/XMPP/Vendor/libidn,
+					"$(SRCROOT)/XMPP/Vendor/libidn",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
@@ -1741,7 +1753,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/amariyangge/Desktop/EasySayWaO/XMPP/Vendor/libidn,
+					"$(SRCROOT)/XMPP/Vendor/libidn",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;

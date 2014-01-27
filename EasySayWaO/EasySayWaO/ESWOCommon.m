@@ -43,6 +43,7 @@
     }
 
     targetView.title = title;
+    [ESWOCommon matchSystemVersion:targetView];
 }
 - (void)leftBtnMethod
 {
@@ -52,5 +53,15 @@
 {
     
 }
-
+/**
+ *  match systemsion ios7 and other ios systems nav different
+ */
++ (void)matchSystemVersion:(UIViewController*)targetView
+{
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0) {
+        targetView.edgesForExtendedLayout = UIRectEdgeNone;
+        targetView.extendedLayoutIncludesOpaqueBars = NO;
+        targetView.modalPresentationCapturesStatusBarAppearance = NO;
+    }
+}
 @end

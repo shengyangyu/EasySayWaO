@@ -10,7 +10,7 @@
 #import "ESWOCommon.h"
 #import "ESWOLoginVC.h"
 
-@interface ESWOMainVC ()
+@interface ESWOMainVC ()<UIAlertViewDelegate>
 
 // tableview array data
 @property (nonatomic,strong) NSMutableArray *usersArray;
@@ -34,8 +34,31 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [ESWOCommon customizeNavBar:self withTitle:@"login user" buttonNameL:@"account" buttonNameR:@"no"];
+    [ESWOCommon customizeNavBar:self withTitle:@"login user"buttonNameL:@"account"buttonNameR:nil];
     usersArray = [NSMutableArray array];
+    // bind chatdelegate
+    ESWOAppDelegate *del = [self appDelegate];
+    del.chatDelegate = self;
+}
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:YES];
+    
+    NSString *login = [[NSUserDefaults standardUserDefaults] objectForKey:@"userNameField"];
+    if (login) {
+        if ([[self appDelegate] connect]) {
+            
+        }
+    }else {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"您还没有设置账号" delegate:self cancelButtonTitle:@"设置" otherButtonTitles:nil, nil];
+        [alert show];
+    }
+}
+
+#pragma mark -UIAlertDelegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    [self leftBtnMethod];
 }
 
 #pragma mark -UITableView delegate
@@ -51,6 +74,7 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
+    cell.textLabel.text = [usersArray objectAtIndex:indexPath.row];
     
     return cell;
 }
@@ -59,6 +83,39 @@
 
 }
 
+//取得当前程序的委托
+-(ESWOAppDelegate *)appDelegate{
+    
+    return (ESWOAppDelegate *)[[UIApplication sharedApplication] delegate];
+    
+}
+
+//取得当前的XMPPStream
+-(XMPPStream *)xmppStream{
+    
+    return [[self appDelegate] xmppStream];
+}
+
+//在线好友
+-(void)newBuddyOnline:(NSString *)buddyName{
+    
+    if (![usersArray containsObject:buddyName]) {
+        [usersArray addObject:buddyName];
+        [self.usersTableView reloadData];
+    }
+    
+}
+
+//好友下线
+-(void)buddyWentOffline:(NSString *)buddyName{
+    
+    [usersArray removeObject:buddyName];
+    [self.usersTableView reloadData];
+    
+}
+
+
+#pragma mark -top button method
 /**
  *  top navgation button
  */
