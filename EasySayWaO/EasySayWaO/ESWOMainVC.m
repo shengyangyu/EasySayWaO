@@ -9,6 +9,7 @@
 #import "ESWOMainVC.h"
 #import "ESWOCommon.h"
 #import "ESWOLoginVC.h"
+#import "ESWOMessageVC.h"
 
 @interface ESWOMainVC ()<UIAlertViewDelegate>
 
@@ -44,7 +45,7 @@
 {
     [super viewWillAppear:YES];
     
-    NSString *login = [[NSUserDefaults standardUserDefaults] objectForKey:@"userNameField"];
+    NSString *login = [[NSUserDefaults standardUserDefaults] objectForKey:Account_userid];
     if (login) {
         if ([[self appDelegate] connect]) {
             
@@ -80,7 +81,9 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-
+    ESWOMessageVC *vc = [[ESWOMessageVC alloc] initWithNibName:@"ESWOMessageVC" bundle:nil];
+    vc.currentName = [NSString stringWithFormat:@"%@",[usersArray objectAtIndex:indexPath.row]];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 //取得当前程序的委托

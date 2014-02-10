@@ -60,9 +60,9 @@
     }else{
     
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        [defaults setObject:self.userNameField.text forKey:@"userNameField"];
-        [defaults setObject:self.passworldField.text forKey:@"passworldField"];
-        [defaults setObject:self.severSetField.text forKey:@"severSetField"];
+        [defaults setObject:self.userNameField.text forKey:Account_userid];
+        [defaults setObject:self.passworldField.text forKey:Account_userpassword];
+        [defaults setObject:self.severSetField.text forKey:Account_server];
         //保存
         [defaults synchronize];
         

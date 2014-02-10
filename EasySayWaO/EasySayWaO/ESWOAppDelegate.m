@@ -34,13 +34,14 @@
 {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
-    [self disConnect];
+    
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    [self disConnect];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
@@ -71,9 +72,9 @@
    
     //get username password server
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSString *userId = [defaults stringForKey:@"userNameField"];
-    NSString *temppassword = [defaults stringForKey:@"passworldField"];
-    NSString *server = [defaults stringForKey:@"severSetField"];
+    NSString *userId = [defaults stringForKey:Account_userid];
+    NSString *temppassword = [defaults stringForKey:Account_userpassword];
+    NSString *server = [defaults stringForKey:Account_server];
     
     // if connected so don't need connect
     if (![xmppStream isDisconnected]) {
@@ -156,8 +157,8 @@
 - (void)xmppStream:(XMPPStream *)sender didReceiveMessage:(XMPPMessage *)message
 {
     // parse message
-    NSString *mesg = [[message elementForName:@"body"] stringValue];
-    NSString *from = [[message attributeForName:@"from"] stringValue];
+    NSString *mesg = [[message elementForName:Message_body] stringValue];
+    NSString *from = [[message attributeForName:Message_from] stringValue];
     
     // data check
     if (mesg == nil || from == nil) {
@@ -166,11 +167,16 @@
     
     // package
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-    [dict setObject:mesg forKey:@"msg"];
-    [dict setObject:from forKey:@"sender"];
+    [dict setObject:mesg forKey:Message_body];
+    [dict setObject:from forKey:Message_from];
     
     // message delegate
     [messageDelegate newMessageReceived:dict];
+    
+    /*
+    UIAlertView *alertV = [[UIAlertView alloc] initWithTitle:from message:mesg delegate:self cancelButtonTitle:@"i konw" otherButtonTitles:nil, nil];
+    [alertV show];
+     */
 }
 // receive user online
 - (void)xmppStream:(XMPPStream *)sender didReceivePresence:(XMPPPresence *)presence

@@ -8,6 +8,15 @@
 
 #import <Foundation/Foundation.h>
 
+#define Message_from          @"from"
+#define Message_to            @"to"
+#define Message_type          @"type"
+#define Message_body          @"body"
+#define Account_userid        @"userNameField"
+#define Account_userpassword  @"passworldField"
+#define Account_server        @"severSetField"
+
+
 @protocol ESWOKKChatDlegate <NSObject>
 @optional
 

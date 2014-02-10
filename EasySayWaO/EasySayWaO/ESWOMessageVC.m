@@ -19,6 +19,7 @@
 
 @implementation ESWOMessageVC
 @synthesize messageArray;
+@synthesize currentName;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -33,7 +34,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    [ESWOCommon customizeNavBar:self withTitle:@"message view"buttonNameL:@"back"buttonNameR:nil];
+    [ESWOCommon customizeNavBar:self withTitle:currentName buttonNameL:@"back"buttonNameR:nil];
     messageArray = [NSMutableArray array];
     // delegate
     ESWOAppDelegate *del= [self appDelegate];
@@ -72,6 +73,56 @@
     return YES;
 }
 
+#pragma mark -send message
+/**
+ *  send message to other user
+ *
+ *  @param sender button
+ */
+- (IBAction)sendMethod:(UIButton *)sender
+{
+    //textfield context
+    NSString *message = self.messageTextfield.text;
+    
+    if (message.length > 0) {
+        
+        //XMPPFramework主要是通过KissXML来生成XML文件
+        //生成<body>文档
+        NSXMLElement *body = [NSXMLElement elementWithName:Message_body];
+        [body setStringValue:message];
+        
+        //生成XML消息文档
+        NSXMLElement *mes = [NSXMLElement elementWithName:@"message"];
+        //消息类型
+        [mes addAttributeWithName:Message_type stringValue:@"chat"];
+        //发送给谁
+        [mes addAttributeWithName:Message_to stringValue:currentName];
+        //由谁发送
+        [mes addAttributeWithName:Message_from stringValue:[[NSUserDefaults standardUserDefaults] stringForKey:Account_userid]];
+        //组合
+        [mes addChild:body];
+        
+        //send message
+        [[self xmppStream] sendElement:mes];
+        
+        // responder textfield
+        self.messageTextfield.text = @"";
+        [self.messageTextfield resignFirstResponder];
+        
+        NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
+        
+        [dictionary setObject:message forKey:Message_body];
+        [dictionary setObject:@"you" forKey:@"sender"];
+        
+        //加入发送时间
+        //[dictionary setObject:[Statics getCurrentTime] forKey:@"time"];
+        
+        [messageArray addObject:dictionary];
+        //reload tableView
+        [self.messageTableView reloadData];
+    }
+}
+
 #pragma mark -top button method
 /**
  *  top navgation button
@@ -88,10 +139,17 @@
 #pragma mark KKMessageDelegate
 -(void)newMessageReceived:(NSDictionary *)messageCotent{
     
-    [messageArray addObject:messageCotent];
-    
-    [self.messageTableView reloadData];
-    
+    // is current user communication
+    NSString *temp = [messageCotent objectForKey:Message_from];
+    NSRange foundObj=[temp rangeOfString:currentName options:NSCaseInsensitiveSearch];
+    if(foundObj.length>0) {
+        
+        [messageArray addObject:messageCotent];
+        [self.messageTableView reloadData];
+        
+    } else {
+        
+    }
 }
 
 #pragma mark -UITableView delegate
@@ -107,7 +165,7 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
-    
+    cell.textLabel.text = [[messageArray objectAtIndex:indexPath.row] objectForKey:Message_body];
     return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
